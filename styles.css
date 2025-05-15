@@ -1,0 +1,828 @@
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffe4ec;
+    margin: 0;
+    font-family: 'Dancing Script', cursive, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    flex: 1 0 auto;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.title {
+    color: #ff4d91;
+    font-size: 2.5rem;
+    margin-bottom: 18px;
+    font-weight: 700;
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Laço Hello Kitty no título */
+.title::after {
+    content: '';
+    display: inline-block;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Hello_Kitty_bow.svg') no-repeat center/contain;
+    width: 48px;
+    height: 32px;
+    position: absolute;
+    right: 0;
+    top: 0.2em;
+}
+
+/* Coração grande */
+.heart-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.heart {
+    font-size: 3.2rem;
+    color: #ff4d91;
+    margin-bottom: 18px;
+}
+
+/* Seções principais */
+main {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 5px 30px rgba(255, 77, 145, 0.1);
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #ff4d91;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilo da seção de mensagem inicial */
+.message {
+    background: #fff8fb;
+    border-radius: 18px;
+    border: 2px dashed #ffb6d5;
+    padding: 18px 12px 12px 12px;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.message h2 {
+    color: #ff4d91;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.message p {
+    color: #ff4d91;
+    font-size: 1.1rem;
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Estilo da lista de qualidades */
+.qualities-list {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.qualities-list li {
+    padding: 15px 20px;
+    background-color: #fff9fb;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(255, 77, 145, 0.1);
+    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.qualities-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 77, 145, 0.2);
+}
+
+.quality-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+/* Estilo dos cartões de memória */
+.memory-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.memory-card {
+    padding: 25px;
+    border-radius: 15px;
+    background-color: #fff9fb;
+    box-shadow: 0 5px 15px rgba(255, 77, 145, 0.1);
+    transition: transform 0.3s;
+    text-align: center;
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.memory-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(255, 77, 145, 0.2);
+}
+
+.memory-card h3 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+}
+
+.memory-author {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.9em;
+    color: #ff4d91;
+    font-style: italic;
+}
+
+/* Estilo da carta de amor */
+.love-letter {
+    background-color: #fff9fb;
+    padding: 30px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.love-letter::before {
+    content: '';
+    position: absolute;
+    background-color: #ffcce0;
+    width: 100%;
+    height: 100%;
+    top: 10px;
+    left: 10px;
+    border-radius: 15px;
+    z-index: -1;
+}
+
+.letter-content {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    line-height: 1.8;
+}
+
+.letter-content p {
+    margin-bottom: 15px;
+}
+
+/* Corações flutuantes */
+.floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 2rem;
+    color: #ff4d91;
+    text-shadow: 0 2px 8px #fff0f5;
+    user-select: none;
+    animation-name: float;
+    animation-duration: 6s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.floating-heart:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-heart:nth-child(2) {
+    left: 30%;
+    animation-delay: 1.5s;
+}
+
+.floating-heart:nth-child(3) {
+    left: 50%;
+    animation-delay: 3s;
+}
+
+.floating-heart:nth-child(4) {
+    left: 70%;
+    animation-delay: 4.5s;
+}
+
+.floating-heart:nth-child(5) {
+    left: 90%;
+    animation-delay: 6s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(1.2) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+/* Rodapé */
+footer {
+    width: 100%;
+    text-align: center;
+    color: #ff4d91;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    background: transparent;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    position: relative;
+    flex-shrink: 0;
+}
+.footer-heart {
+    font-size: 1.3em;
+    vertical-align: middle;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.8rem;
+    }
+    
+    main {
+        padding: 25px;
+    }
+    
+    .qualities-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .memory-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .letter-content {
+        font-size: 1.2rem;
+    }
+}
+
+/* Seção de Memórias Especiais */
+.special-memories {
+    background: #fff0f5;
+    border-radius: 18px;
+    padding: 35px 20px 25px 20px;
+    margin: 40px 0 0 0;
+    box-shadow: 0 4px 18px rgba(255, 77, 145, 0.08);
+    text-align: center;
+}
+
+.special-memories h2 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+#memories-list {
+    margin-bottom: 30px;
+}
+
+.memory-item {
+    background: #fff;
+    border-radius: 10px;
+    margin: 0 auto 18px auto;
+    padding: 18px 20px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #5a5a5a;
+    box-shadow: 0 2px 8px rgba(255, 77, 145, 0.07);
+    max-width: 600px;
+    border: 1.5px solid #ffe0ef;
+}
+
+.add-memory-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px 18px 18px 18px;
+    box-shadow: 0 2px 8px rgba(255, 77, 145, 0.07);
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.add-memory-box h3 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+#new-memory {
+    width: 100%;
+    min-height: 60px;
+    border-radius: 8px;
+    border: 1.5px solid #ffd6e6;
+    padding: 12px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 15px;
+    resize: vertical;
+    background: #fff9fb;
+    color: #5a5a5a;
+    transition: border 0.2s;
+}
+#new-memory:focus {
+    border: 1.5px solid #ff4d91;
+    outline: none;
+}
+
+#save-memory {
+    background: #ff4d91;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 28px 10px 38px;
+    font-family: 'Baloo 2', 'Montserrat', cursive, sans-serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+}
+#save-memory::before {
+    content: '';
+    display: inline-block;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Hello_Kitty_bow.svg') no-repeat center/contain;
+    width: 22px;
+    height: 16px;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#save-memory:hover {
+    background: #ff2d55;
+}
+
+/* Botão de olho flutuante */
+#eye-button {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: #fff0f5;
+    border: 2px solid #ff4d91;
+    border-radius: 50%;
+    box-shadow: 0 2px 12px rgba(255, 77, 145, 0.13);
+    padding: 8px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+#eye-button:hover {
+    background: #ff4d91;
+    box-shadow: 0 4px 18px rgba(255, 77, 145, 0.22);
+}
+#eye-button svg ellipse:first-child {
+    transition: fill 0.2s;
+}
+#eye-button:hover svg ellipse:first-child {
+    fill: #ff4d91;
+}
+#eye-button:hover svg ellipse:nth-child(2) {
+    fill: #fff;
+}
+
+/* Seção de elogios aos olhos */
+.eye-compliments {
+    background: #fff9fb;
+    border-radius: 18px;
+    padding: 38px 20px 28px 20px;
+    margin: 40px 0 0 0;
+    box-shadow: 0 4px 18px rgba(255, 77, 145, 0.08);
+    text-align: center;
+}
+.eye-compliments h2 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    font-size: 2.2rem;
+    margin-bottom: 22px;
+}
+.eye-compliments-content p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #5a5a5a;
+    margin-bottom: 14px;
+}
+
+/* Modal de elogios aos olhos */
+.eye-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(40, 0, 30, 0.45);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s;
+}
+.eye-modal.open {
+    display: flex;
+}
+.eye-modal-content {
+    background: #fff0f5;
+    border-radius: 22px;
+    padding: 38px 32px 32px 32px;
+    box-shadow: 0 8px 32px rgba(255, 77, 145, 0.18);
+    text-align: center;
+    position: relative;
+    max-width: 420px;
+    width: 90vw;
+    animation: modalPop 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+}
+@keyframes modalPop {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.close-eye-modal {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 2.1rem;
+    color: #ff4d91;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 10;
+}
+.close-eye-modal:hover {
+    color: #e03e7d;
+}
+.big-eye-drawing {
+    margin-bottom: 18px;
+}
+.eye-modal-content h2 {
+    font-family: 'Great Vibes', cursive;
+    color: #ff4d91;
+    font-size: 2.2rem;
+    margin-bottom: 18px;
+}
+.eye-compliments-modal-text p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.25rem;
+    color: #5a5a5a;
+    margin-bottom: 13px;
+}
+
+/* Login Page Styles */
+.login-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.login-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.login-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-section h2 {
+    text-align: center;
+    color: #ff4d91;
+    margin-bottom: 25px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: #666;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 2px solid #ffd6e7;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff4d91;
+}
+
+.login-button {
+    background: #ff4d91;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background: #ff3377;
+}
+
+/* Estilos para o cabeçalho das memórias */
+.memories-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.refresh-button {
+    background: #ff4d91;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 77, 145, 0.2);
+}
+
+.refresh-button:hover {
+    background: #ff3377;
+    transform: scale(1.05);
+}
+
+.refresh-button:active {
+    transform: scale(0.95);
+}
+
+.refresh-button span {
+    font-size: 1.1em;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.refresh-button.loading span {
+    animation: spin 1s linear infinite;
+}
+
+/* Cards fofos */
+.memory-card, .memory-item, .add-memory-box, .love-letter {
+    border: 2px solid #ffb6d5;
+    box-shadow: 0 4px 18px rgba(255, 77, 145, 0.10);
+    background: #fff9fb;
+    border-radius: 18px;
+    position: relative;
+}
+
+.memory-card::after, .memory-item::after, .add-memory-box::after, .love-letter::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -18px;
+    right: 18px;
+    width: 32px;
+    height: 22px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Hello_Kitty_bow.svg') no-repeat center/contain;
+}
+
+/* Ajuste para inputs */
+input, textarea {
+    border-radius: 12px;
+    border: 1.5px solid #ffb6d5;
+    background: #fff9fb;
+    color: #ff4d91;
+    font-family: 'Baloo 2', 'Montserrat', cursive, sans-serif;
+}
+input:focus, textarea:focus {
+    border-color: #ff4d91;
+    outline: none;
+}
+
+/* Adicionar fonte Baloo 2 */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap');
+
+/* Fundo rosa claro */
+.kitty-bg {
+    background: linear-gradient(180deg, #ffe4ec 0%, #fff0f5 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hello Kitty segurando o site no topo */
+.kitty-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: -110px; /* Ajuste para encaixar as patinhas na borda */
+    left: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.hello-kitty-top {
+    width: 260px;
+    max-width: 80vw;
+    display: block;
+    z-index: 10;
+    position: relative;
+    pointer-events: none;
+}
+
+.card {
+    background: #fff;
+    border-radius: 32px;
+    box-shadow: 0 4px 32px rgba(255, 77, 145, 0.10);
+    max-width: 420px;
+    width: 90vw;
+    margin-top: 120px; /* espaço para a Hello Kitty */
+    padding: 36px 28px 40px 28px;
+    border: 2px solid #ffd6e7;
+    text-align: center;
+    position: relative;
+}
+
+.kitty-img {
+    width: 180px;
+    max-width: 60vw;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Card branco arredondado */
+.kitty-card {
+    background: #fff;
+    border-radius: 32px;
+    box-shadow: 0 4px 32px rgba(255, 77, 145, 0.10);
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 36px 28px 40px 28px;
+    position: relative;
+    top: -40px;
+    z-index: 1;
+    border: 2px solid #ffd6e7;
+}
+
+.kitty-title {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 18px;
+    font-weight: 700;
+}
+
+.kitty-heart {
+    text-align: center;
+    font-size: 3.2rem;
+    color: #ff4d91;
+    margin-bottom: 18px;
+}
+
+.kitty-inspiration {
+    background: #fff8fb;
+    border-radius: 18px;
+    border: 2px dashed #ffb6d5;
+    padding: 18px 12px 12px 12px;
+    margin-bottom: 28px;
+    text-align: center;
+}
+.kitty-inspiration h2 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+.kitty-inspiration p {
+    color: #ff4d91;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.kitty-qualities {
+    margin-top: 10px;
+}
+.kitty-qualities h2 {
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 18px;
+}
+.kitty-qualities-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+.kitty-quality {
+    background: #fff8fb;
+    border-radius: 14px;
+    border: 1.5px solid #ffd6e7;
+    padding: 12px 10px;
+    font-family: 'Dancing Script', cursive;
+    color: #ff4d91;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(255, 77, 145, 0.06);
+}
+.kitty-quality span {
+    font-size: 1.3em;
+    margin-right: 6px;
+}
+
+@media (max-width: 600px) {
+    .kitty-card {
+        padding: 18px 4vw 24px 4vw;
+        max-width: 98vw;
+    }
+    .kitty-img {
+        width: 120px;
+    }
+    .kitty-qualities-list {
+        grid-template-columns: 1fr;
+    }
+} 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o meu amor lindo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Firebase App (core) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase Storage -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="kitty-header">
+            <img src="width1024.png" alt="Hello Kitty segurando" class="hello-kitty-top">
+        </div>
+        <div class="card">
+            <h1 class="title">Para o meu amor lindo</h1>
+            <div class="heart">❤</div>
+            <section class="message">
+                <h2>Meu amor, minha inspiração</h2>
+                <p>Mesmo separados pela distância, cada conversa com você ilumina meu dia.</p>
+            </section>
+        </div>
+        <div class="heart-container">
+            <div class="heart"></div>
+        </div>
+        <main>
+            <section class="qualities">
+                <h2>O que eu mais amo em você:</h2>
+                <ul class="qualities-list">
+                    <li><span class="quality-icon">✨</span> Sua personalidade que me encanta a cada mensagem</li>
+                    <li><span class="quality-icon">💖</span> Sua bondade e carinho que transparecem nas palavras</li>
+                    <li><span class="quality-icon">🌟</span> Sua inteligência e forma de pensar</li>
+                    <li><span class="quality-icon">🦋</span> Sua beleza que me fascina em cada foto</li>
+                    <li><span class="quality-icon">🌈</span> Sua força e determinação diante dos desafios</li>
+                    <li><span class="quality-icon">💭</span> Seu jeito único que me faz sorrir mesmo à distância</li>
+                </ul>
+            </section>
+            <section class="memories">
+                <h2>Nossos momentos especiais</h2>
+                <div class="memory-cards">
+                    <div class="memory-card">
+                        <h3>Nossa primeira conversa</h3>
+                        <p>Quando percebi que tinha encontrado alguém especial.</p>
+                    </div>
+                    <div class="memory-card">
+                        <h3>Nossas longas chamadas</h3>
+                        <p>Quando o tempo passa voando porque estamos juntos, mesmo que virtualmente.</p>
+                    </div>
+                    <div class="memory-card">
+                        <h3>Nossos sonhos compartilhados</h3>
+                        <p>Planejando um futuro onde a distância será apenas uma lembrança.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="love-letter">
+                <h2>Carta de amor</h2>
+                <div class="letter-content">
+                    <p>Meu amor,</p>
+                    <p>A distância pode separar nossos corpos, mas nunca nossos corações. Cada mensagem sua, cada sorriso em nossas chamadas de vídeo, cada história que compartilhamos torna minha vida mais completa.</p>
+                    <p>Quem diria que poderia sentir algo tão forte por alguém que ainda não toquei? Mas é exatamente isso que sinto por você. Conheci sua alma, sua essência, seu jeito de ser.</p>
+                    <p>Admiro sua força, sua determinação, sua sensibilidade e seu jeito único que me conquista todos os dias, através de uma tela que um dia não será mais necessária.</p>
+                    <p>Sonho com o dia em que poderei te abraçar, sentir seu perfume e olhar nos seus olhos sem a intermediação de uma câmera.</p>
+                    <p>Eu Te amo Minha Princesa,</p>
+                    <p>Beijão</p>
+                </div>
+            </section>
+            <!-- Seção de Memórias Especiais para Peu -->
+            <section class="special-memories" id="special-memories">
+                <h2>Nossas Memórias Especiais</h2>
+                <div class="memories-header">
+                    <button id="refresh-memories" class="refresh-button" title="Atualizar memórias">
+                        <span>🔄</span> Atualizar
+                    </button>
+                </div>
+                <div id="memories-list">
+                    <!-- Memórias serão inseridas aqui pelo JS -->
+                </div>
+                <div class="add-memory-box">
+                    <h3>Adicione uma Nova Memória</h3>
+                    <textarea id="new-memory" placeholder="Escreva uma memória especial que compartilhamos..."></textarea>
+                    <button id="save-memory">Guardar Esta Memória</button>
+                </div>
+            </section>
+            <!-- Ícone de olho flutuante -->
+            <button id="eye-button" title="Ver elogios aos seus olhos">
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="19" cy="19" rx="16" ry="10" fill="#fff" stroke="#ff4d91" stroke-width="2"/>
+                    <ellipse cx="19" cy="19" rx="6" ry="6" fill="#ff4d91"/>
+                    <ellipse cx="19" cy="19" rx="3" ry="3" fill="#fff"/>
+                </svg>
+            </button>
+            <!-- Modal de elogios aos olhos -->
+            <div id="eye-modal" class="eye-modal">
+                <div class="eye-modal-content">
+                    <button class="close-eye-modal" id="close-eye-modal" title="Fechar">&times;</button>
+                    <div class="big-eye-drawing">
+                        <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="60" cy="30" rx="50" ry="22" fill="#fff" stroke="#ff4d91" stroke-width="3"/>
+                            <ellipse cx="60" cy="30" rx="18" ry="18" fill="#ff4d91"/>
+                            <ellipse cx="60" cy="30" rx="8" ry="8" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <h2>O Brilho dos Seus Olhos</h2>
+                    <div class="eye-compliments-modal-text">
+                        <p>Seus olhos têm a cor da ternura e o brilho da esperança.</p>
+                        <p>Quando olho nos seus olhos, vejo um universo inteiro de beleza e sinceridade.</p>
+                        <p>O jeito que você me olha faz meu coração sorrir.</p>
+                        <p>Seus olhos são poesia, são abrigo, são luz nos meus dias.</p>
+                        <p>Eu poderia passar a vida inteira admirando o brilho do seu olhar.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div class="floating-hearts">
+            <div class="floating-heart">❤️</div>
+            <div class="floating-heart">💕</div>
+            <div class="floating-heart">💘</div>
+            <div class="floating-heart">💖</div>
+            <div class="floating-heart">💓</div>
+        </div>
+    </div>
+    <footer>
+        <p>Feito com todo meu amor para você, mesmo à distância <span class="footer-heart">❤️</span></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html> 
