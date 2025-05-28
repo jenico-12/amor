@@ -73,6 +73,95 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Erro ao inicializar o sistema de armazenamento. Por favor, recarregue a página.');
     }
     const photosRef = db.collection('photos');
+
+    // Gerenciamento dos botões de galeria
+    const goToPhotosBtn = document.getElementById('go-to-photos');
+    const goToVideosBtn = document.getElementById('go-to-videos');
+    const photosModal = document.getElementById('photos-modal');
+    const videosModal = document.getElementById('videos-modal');
+    const closePhotosModal = document.getElementById('close-photos-modal');
+    const closeVideosModal = document.getElementById('close-videos-modal');
+
+    // Função para abrir modal
+    function openModal(modal) {
+        if (modal) {
+            modal.classList.add('open');
+            // Pausar todos os vídeos quando abrir o modal
+            if (modal === videosModal) {
+                const videos = modal.querySelectorAll('video');
+                videos.forEach(video => video.pause());
+            }
+        }
+    }
+
+    // Função para fechar modal
+    function closeModal(modal) {
+        if (modal) {
+            modal.classList.remove('open');
+            // Pausar todos os vídeos quando fechar o modal
+            if (modal === videosModal) {
+                const videos = modal.querySelectorAll('video');
+                videos.forEach(video => video.pause());
+            }
+        }
+    }
+
+    // Event listeners para os botões de galeria
+    if (goToPhotosBtn && photosModal) {
+        goToPhotosBtn.addEventListener('click', function() {
+            openModal(photosModal);
+        });
+    }
+
+    if (goToVideosBtn && videosModal) {
+        goToVideosBtn.addEventListener('click', function() {
+            openModal(videosModal);
+        });
+    }
+
+    // Event listeners para fechar os modais
+    if (photosModal && closePhotosModal) {
+        // Fechar modal de fotos
+        closePhotosModal.addEventListener('click', function() {
+            closeModal(photosModal);
+        });
+
+        // Fechar ao clicar fora do conteúdo
+        photosModal.addEventListener('click', function(e) {
+            if (e.target === photosModal) {
+                closeModal(photosModal);
+            }
+        });
+    }
+
+    if (videosModal && closeVideosModal) {
+        // Fechar modal de vídeos
+        closeVideosModal.addEventListener('click', function() {
+            closeModal(videosModal);
+        });
+
+        // Fechar ao clicar fora do conteúdo
+        videosModal.addEventListener('click', function(e) {
+            if (e.target === videosModal) {
+                closeModal(videosModal);
+            }
+        });
+    }
+
+    // Fechar modais com a tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (photosModal.classList.contains('open')) {
+                closeModal(photosModal);
+            }
+            if (videosModal.classList.contains('open')) {
+                closeModal(videosModal);
+            }
+        }
+    });
+
+    // Gerenciamento de edição de descrições
+    initializeCaptionEditing();
 });
 
 // Função para animar elementos quando visíveis na tela
@@ -334,14 +423,16 @@ const currentUser = checkAuth();
 // Add logout button to the page
 function addLogoutButton() {
     const header = document.querySelector('header');
-    const logoutButton = document.createElement('button');
-    logoutButton.className = 'logout-button';
-    logoutButton.innerHTML = `Sair (${currentUser.name})`;
-    logoutButton.onclick = function() {
-        localStorage.removeItem('currentUser');
-        window.location.href = 'login.html';
-    };
-    header.appendChild(logoutButton);
+    if (header && currentUser) {
+        const logoutButton = document.createElement('button');
+        logoutButton.className = 'logout-button';
+        logoutButton.innerHTML = `Sair (${currentUser.name})`;
+        logoutButton.onclick = function() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        };
+        header.appendChild(logoutButton);
+    }
 }
 
 // Add logout button styles
@@ -368,4 +459,156 @@ document.head.appendChild(style);
 // Add logout button if user is logged in
 if (currentUser) {
     addLogoutButton();
+}
+
+// Função para mostrar mensagem de sucesso
+function showSuccessMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.className = 'success-message';
+    messageElement.textContent = message;
+    messageElement.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #ff4d91;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 4px 15px rgba(255, 77, 145, 0.2);
+        z-index: 1000;
+        animation: slideIn 0.5s ease-out;
+    `;
+    
+    document.body.appendChild(messageElement);
+    
+    setTimeout(() => {
+        messageElement.style.animation = 'slideOut 0.5s ease-in forwards';
+        setTimeout(() => {
+            document.body.removeChild(messageElement);
+        }, 500);
+    }, 3000);
+}
+
+// Animações para mensagens
+const animationStyle = document.createElement('style');
+animationStyle.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(animationStyle);
+
+// Gerenciamento de edição de descrições
+function initializeCaptionEditing() {
+    // Coleção no Firebase para as descrições
+    const captionsRef = db.collection('mediaCaptions');
+
+    // Função para carregar descrições do Firebase
+    function loadCaptions() {
+        captionsRef.get().then((snapshot) => {
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const element = document.querySelector(`[data-id="${doc.id}"] .caption-text`);
+                if (element) {
+                    element.textContent = data.caption;
+                    // Atualizar também o valor do input
+                    const input = element.parentElement.querySelector('.caption-input');
+                    if (input) {
+                        input.value = data.caption;
+                    }
+                }
+            });
+        });
+    }
+
+    // Carregar descrições ao iniciar
+    loadCaptions();
+
+    // Adicionar listeners para todos os botões de edição
+    document.querySelectorAll('.edit-caption-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const mediaItem = this.closest('.media-caption');
+            const captionText = mediaItem.querySelector('.caption-text');
+            const editForm = mediaItem.querySelector('.edit-caption-form');
+            
+            // Esconder texto e mostrar formulário
+            captionText.style.display = 'none';
+            editForm.style.display = 'block';
+            editForm.classList.add('show');
+            
+            // Focar no input
+            const input = editForm.querySelector('.caption-input');
+            input.focus();
+            input.select();
+        });
+    });
+
+    // Adicionar listeners para botões de salvar
+    document.querySelectorAll('.save-caption-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const mediaItem = this.closest('.media-caption');
+            const mediaContainer = mediaItem.closest('.photo-item, .video-item');
+            const mediaId = mediaContainer.dataset.id;
+            const input = mediaItem.querySelector('.caption-input');
+            const captionText = mediaItem.querySelector('.caption-text');
+            const editForm = mediaItem.querySelector('.edit-caption-form');
+            
+            const newCaption = input.value.trim();
+            if (newCaption) {
+                // Salvar no Firebase
+                captionsRef.doc(mediaId).set({
+                    caption: newCaption,
+                    updatedBy: currentUser.name,
+                    updatedAt: new Date().toISOString()
+                }).then(() => {
+                    // Atualizar texto na interface
+                    captionText.textContent = newCaption;
+                    captionText.style.display = 'inline-block';
+                    editForm.style.display = 'none';
+                    editForm.classList.remove('show');
+                    
+                    // Mostrar mensagem de sucesso
+                    showSuccessMessage('Descrição atualizada com sucesso! 💖');
+                }).catch(error => {
+                    console.error('Erro ao salvar descrição:', error);
+                    showSuccessMessage('Erro ao salvar descrição. Tente novamente.');
+                });
+            }
+        });
+    });
+
+    // Adicionar listeners para botões de cancelar
+    document.querySelectorAll('.cancel-caption-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const mediaItem = this.closest('.media-caption');
+            const captionText = mediaItem.querySelector('.caption-text');
+            const editForm = mediaItem.querySelector('.edit-caption-form');
+            const input = editForm.querySelector('.caption-input');
+            
+            // Restaurar valor original
+            input.value = captionText.textContent;
+            
+            // Esconder formulário e mostrar texto
+            captionText.style.display = 'inline-block';
+            editForm.style.display = 'none';
+            editForm.classList.remove('show');
+        });
+    });
+
+    // Salvar ao pressionar Enter no input
+    document.querySelectorAll('.caption-input').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.closest('.edit-caption-form').querySelector('.save-caption-btn').click();
+            }
+        });
+    });
 } 

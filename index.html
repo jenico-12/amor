@@ -64,15 +64,96 @@
             <section class="love-letter">
                 <h2>Carta de amor</h2>
                 <div class="letter-content">
-                    <p>Meu amor,</p>
-                    <p>A distância pode separar nossos corpos, mas nunca nossos corações. Cada mensagem sua, cada sorriso em nossas chamadas de vídeo, cada história que compartilhamos torna minha vida mais completa.</p>
-                    <p>Quem diria que poderia sentir algo tão forte por alguém que ainda não toquei? Mas é exatamente isso que sinto por você. Conheci sua alma, sua essência, seu jeito de ser.</p>
-                    <p>Admiro sua força, sua determinação, sua sensibilidade e seu jeito único que me conquista todos os dias, através de uma tela que um dia não será mais necessária.</p>
-                    <p>Sonho com o dia em que poderei te abraçar, sentir seu perfume e olhar nos seus olhos sem a intermediação de uma câmera.</p>
-                    <p>Eu Te amo Minha Princesa,</p>
-                    <p>Beijão</p>
+                    <p>Minha princesa,</p>
+                    <p>Eu não sei bem como começar essa carta, porque quando o assunto é você… as palavras sempre parecem pequenas perto do que eu sinto. Mas mesmo assim, vou tentar transformar esse turbilhão aqui dentro em frases — porque você merece saber o quanto é amada.</p>
+                    <p>Desde que você chegou na minha vida, tudo ganhou um novo sentido. O jeito que você me olha, me fala, me escuta… tudo em você me encanta. Você é abrigo, paz e tempestade boa ao mesmo tempo. É como se meu coração tivesse te reconhecido antes mesmo da gente se encontrar.</p>
+                    <p>Você me faz querer ser melhor, pra te amar do jeito mais bonito possível. E eu te amo, viu? Te amo com uma intensidade que às vezes até me assusta — porque é um amor leve, mas ao mesmo tempo tão forte que segura tudo. Até minhas inseguranças, até os dias ruins.</p>
+                    <p>Quando você me manda mensagens, declarações, quando diz que me vê no futuro... meu peito transborda. Porque eu também te vejo. Te vejo na minha vida, em cada plano, em cada riso, em cada "vai dar certo".</p>
+                    <p>Você é meu amor, minha melhor amiga, meu lar. Eu prometo cuidar de você, te respeitar, te ouvir e te amar em cada detalhe, todo santo dia.</p>
+                    <p>Obrigado por existir. E mais ainda: obrigado por escolher ficar.</p>
+                    <p>Eu te amo, com todos os infinitos que a gente puder viver.</p>
                 </div>
             </section>
+            <!-- Botões para as Galerias -->
+            <div class="gallery-buttons">
+                <button id="go-to-photos" title="Ver Nossas Fotos">
+                    <span>📸</span> Ver Fotos
+                </button>
+                <button id="go-to-videos" title="Ver Nossos Vídeos">
+                    <span>🎥</span> Ver Vídeos
+                </button>
+            </div>
+
+            <!-- Modal da Galeria de Fotos -->
+            <div id="photos-modal" class="media-gallery-modal">
+                <div class="media-gallery-modal-content">
+                    <button class="close-media-gallery-modal" id="close-photos-modal" title="Fechar">&times;</button>
+                    <h2>Nossas Fotos Especiais</h2>
+                    <div id="modal-photos-content">
+                        <!-- Foto do Primeiro Mês -->
+                        <div class="photo-item" data-id="photo1">
+                            <img src="photo/Amor.jpg" alt="Nosso primeiro mês juntos" loading="lazy">
+                            <div class="media-caption">
+                                <div class="caption-text">Nosso primeiro mês! ❤️</div>
+                                <button class="edit-caption-btn" title="Editar descrição">✏️</button>
+                                <div class="edit-caption-form" style="display: none;">
+                                    <input type="text" class="caption-input" value="Nosso primeiro mês! ❤️">
+                                    <div class="caption-actions">
+                                        <button class="save-caption-btn" title="Salvar">💾</button>
+                                        <button class="cancel-caption-btn" title="Cancelar">❌</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal da Galeria de Vídeos -->
+            <div id="videos-modal" class="media-gallery-modal">
+                <div class="media-gallery-modal-content">
+                    <button class="close-media-gallery-modal" id="close-videos-modal" title="Fechar">&times;</button>
+                    <h2>Nossos Vídeos Especiais</h2>
+                    <div id="modal-videos-content">
+                        <!-- Vídeo Julia.mp4 -->
+                        <div class="video-item" data-id="video1">
+                            <video controls>
+                                <source src="videos/Julia.mp4" type="video/mp4">
+                                Seu navegador não suporta vídeos.
+                            </video>
+                            <div class="media-caption">
+                                <div class="caption-text">Nosso Momento Especial! ❤️</div>
+                                <button class="edit-caption-btn" title="Editar descrição">✏️</button>
+                                <div class="edit-caption-form" style="display: none;">
+                                    <input type="text" class="caption-input" value="Nosso Momento Especial! ❤️">
+                                    <div class="caption-actions">
+                                        <button class="save-caption-btn" title="Salvar">💾</button>
+                                        <button class="cancel-caption-btn" title="Cancelar">❌</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Novo Vídeo -->
+                        <div class="video-item" data-id="video2">
+                            <video controls>
+                                <source src="videos/novo_video.mp4" type="video/mp4">
+                                Seu navegador não suporta vídeos.
+                            </video>
+                            <div class="media-caption">
+                                <div class="caption-text">Nosso Novo Momento Juntos! 💕</div>
+                                <button class="edit-caption-btn" title="Editar descrição">✏️</button>
+                                <div class="edit-caption-form" style="display: none;">
+                                    <input type="text" class="caption-input" value="Nosso Novo Momento Juntos! 💕">
+                                    <div class="caption-actions">
+                                        <button class="save-caption-btn" title="Salvar">💾</button>
+                                        <button class="cancel-caption-btn" title="Cancelar">❌</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Seção de Memórias Especiais para Peu -->
             <section class="special-memories" id="special-memories">
                 <h2>Nossas Memórias Especiais</h2>
